@@ -161,8 +161,6 @@ def exit():
 
 
 data_file = 'data.bin'
-open
-print(data_file)
 
 dict_commands = {"hello": hello,
                  "add": user_add,
