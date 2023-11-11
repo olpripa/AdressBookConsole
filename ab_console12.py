@@ -121,6 +121,15 @@ def birthday_add(name, birthday):
 
 
 @input_error
+def adress_add(name, adress):
+    if name in dict_users_phone.keys():
+
+        return f'add for {name} adress {adress}'
+    else:
+        return f'and user {name} not exist'
+
+
+@input_error
 def show_all():
     # outputs all phone number in list to the console.
     page = Paginator(dict_users_phone)
@@ -169,6 +178,8 @@ dict_commands = {"hello": hello,
                  "phonechange": phone_change,
                  "phone": phone_show,
                  "addbirthday": birthday_add,
+                 "addadress": adress_add,
+                 "deladress": adress_add,
                  "show": show_all,
                  "search": search,
                  "exit": exit,

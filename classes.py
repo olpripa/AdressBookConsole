@@ -91,6 +91,12 @@ class Email(Field):
     ...
 
 
+class Adress(Field):
+    def __init__(self, adres: str):
+        self.__adress = None
+        self.adress = adres
+
+
 class Birthday(Field):
 
     def __init__(self, value) -> None:
@@ -115,22 +121,24 @@ class Birthday(Field):
 
 class Record(Field):
 
-    def __init__(self, value, phones=None, emails=None, birthday: Birthday = None):
+    def __init__(self, value, phones=None, emails=None, adress: str = None, birthday: Birthday = None):
 
         self.name = Name(value)
         self.phones: list = phones
         self.emails: list = emails
+        self.adress = Adress(adress)
         if birthday:
             self.birthday = birthday
         else:
             self.birthday = None
 
     def __str__(self) -> str:
-        return 'User: {} {} {} {}'.format(self.name,
+        return 'User: {} {} {} {} {}'.format(self.name,
                                           " ".join(
                                               str(p) for p in self.phones) if self.phones else '',
                                           " ".join(
                                               str(e) for e in self.emails) if self.emails else '',
+                                          self.adress,
                                           self.birthday)
 
     def showphones(self):
@@ -177,6 +185,14 @@ class Record(Field):
                                                                  new_phone)
         else:
             return '{} not have phone: {}'.format(self.name, phone)
+
+    def add_adress(self, adres: str):
+        if not self.adress:
+            self.adress = adres
+
+
+    def remove_adress(self):
+        self.adress = None
 
     def daystoBirthday(self):
         if self.birthday:
