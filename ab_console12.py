@@ -158,7 +158,11 @@ def search(str_search):
 @input_error
 def load():
     with open(data_file, "rb") as file:
-        return pickle.load(file)
+        print(len(pickle.load(file)))
+        if len(pickle.load(file)) > 0:
+            return pickle.load(file)
+        else:
+            return False
 
 
 @input_error
