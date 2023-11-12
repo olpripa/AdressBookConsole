@@ -13,7 +13,10 @@ class Field:
         self.value = value
 
     def __str__(self) -> str:
-        return self.value
+        if self.value == None:
+            return f''
+        else:
+            return self.value
 
     def __repr__(self) -> str:
         return self.value
@@ -92,9 +95,7 @@ class Email(Field):
 
 
 class Adress(Field):
-    def __init__(self, adres: str):
-        self.__adress = None
-        self.adress = adres
+    ...
 
 
 class Birthday(Field):
@@ -128,18 +129,18 @@ class Record(Field):
         self.emails: list = emails
         self.adress = Adress(adress)
         if birthday:
-            self.birthday = birthday
+            self.birthday = Birthday(birthday)
         else:
             self.birthday = None
 
     def __str__(self) -> str:
         return 'User: {} {} {} {} {}'.format(self.name,
-                                          " ".join(
-                                              str(p) for p in self.phones) if self.phones else '',
-                                          " ".join(
-                                              str(e) for e in self.emails) if self.emails else '',
-                                          self.adress,
-                                          self.birthday)
+                                             " ".join(
+                                                 str(p) for p in self.phones) if self.phones else '',
+                                             " ".join(
+                                                 str(e) for e in self.emails) if self.emails else '',
+                                             self.adress,
+                                             self.birthday)
 
     def showphones(self):
         if self.phones:
@@ -190,7 +191,6 @@ class Record(Field):
         if not self.adress:
             self.adress = adres
 
-
     def remove_adress(self):
         self.adress = None
 
@@ -206,9 +206,9 @@ class Record(Field):
 
             return (f'!!!! {time_to_birthday.days}')
 
-    def addbirthday(self, birthday: Birthday):
+    def addbirthday(self, birthday):
         if self.birthday == None:
-            self.birthday = birthday
+            self.birthday = Birthday(birthday)
             return 'To list of {} add: {}'.format(self.name, birthday)
 
 

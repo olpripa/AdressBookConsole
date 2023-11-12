@@ -19,6 +19,7 @@
 
 """
 from classes import *
+from start import ab_start
 import pickle
 
 
@@ -159,10 +160,12 @@ def search(str_search):
 def load():
     with open(data_file, "rb") as file:
         print(len(pickle.load(file)))
-        if len(pickle.load(file)) > 0:
-            return pickle.load(file)
-        else:
-            return False
+        return pickle.load(file)
+
+        # if len(pickle.load(file)) > 0:
+        #     return pickle.load(file)
+        # else:
+        #     return False
 
 
 @input_error
@@ -213,7 +216,7 @@ def main():
 
     global dict_users_phone
 
-    dict_users_phone = load()
+    dict_users_phone = ab_start
     arg = ''
     print(f'main-code в {__name__} виконується тут\n {__doc__}')
     try:
