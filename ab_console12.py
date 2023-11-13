@@ -19,7 +19,8 @@
 
 """
 from classes import *
-from start import ab_start
+# from start import ab_start
+from pathlib import Path
 import pickle
 
 
@@ -158,14 +159,11 @@ def search(str_search):
 
 @input_error
 def load():
-    with open(data_file, "rb") as file:
-        print(len(pickle.load(file)))
-        return pickle.load(file)
-
-        # if len(pickle.load(file)) > 0:
-        #     return pickle.load(file)
-        # else:
-        #     return False
+    if data_file.exists() and data_file.stat().st_size > 0:
+        with open(data_file, "rb") as file:
+            return pickle.load(file)
+    else:
+        return AdressBook()
 
 
 @input_error
@@ -176,8 +174,21 @@ def exit():
     return
 
 
-data_file = 'data.bin'
-
+data_file = Path('data.bin')
+list_command = ["hello",
+                "add",
+                "phoneadd",
+                "phonedel",
+                "phonechange",
+                "phone",
+                "addbirthday",
+                "addadress",
+                "deladress",
+                "show",
+                "search",
+                "exit",
+                "close",
+                "."]
 dict_commands = {"hello": hello,
                  "add": user_add,
                  "phoneadd": phone_add,
@@ -190,7 +201,6 @@ dict_commands = {"hello": hello,
                  "show": show_all,
                  "search": search,
                  "exit": exit,
-                 "goodbye": exit,
                  "close": exit,
                  ".": exit,
                  }
@@ -216,12 +226,15 @@ def main():
 
     global dict_users_phone
 
-    dict_users_phone = ab_start
+    dict_users_phone = load()
     arg = ''
+
     print(f'main-code в {__name__} виконується тут\n {__doc__}')
     try:
         while True:
-            command, *arg = input('>>>').strip().split(' ', 1)
+            command, * \
+                arg = input(
+                    f"Commands: { ', '.join(list_command)}\n>>>").strip().split(' ', 1)
             if arg:
                 arg = parser_arg(''.join(arg))
 
