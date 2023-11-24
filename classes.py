@@ -122,25 +122,24 @@ class Birthday(Field):
 
 class Record(Field):
 
-    def __init__(self, value, phones=None, emails=None, adress: str = None, birthday: Birthday = None):
+    def __init__(self, value, phones=None, emails: Email = None, adress: Adress = None, birthday: Birthday = None):
 
         self.name = Name(value)
         self.phones: list = phones
         self.emails: list = emails
-        self.adress = Adress(adress)
+        self.adress = adress
         if birthday:
             self.birthday = Birthday(birthday)
         else:
             self.birthday = None
 
     def __str__(self) -> str:
-        return 'User: {} {} {} {} {}'.format(self.name,
-                                             " ".join(
-                                                 str(p) for p in self.phones) if self.phones else '',
-                                             " ".join(
-                                                 str(e) for e in self.emails) if self.emails else '',
-                                             self.adress,
-                                             self.birthday)
+        ph = '\nPhones: ' + ", ".join(str(p)
+                                      for p in self.phones) if self.phones else ""
+        em = '\nE-mail: ' + ", ".join(str(e)
+                                      for e in self.emails) if self.emails else ''
+        return '{:-^50}'.format('Contact') + '\n' + '{0:<25} {4:10} {1} {2} {3} {5}'.format(str(self.name), ph, em,
+                                                                                            "\nAdres: " + (str(self.adress)) if self.adress != None else "", str(self.birthday), "\n")
 
     def showphones(self):
         if self.phones:
@@ -166,6 +165,18 @@ class Record(Field):
                     self.phones.append(phone)
                     return 'To list of {} add Phone: {}'.format(self.name, phone)
 
+    def addemails(self, *emails):  # phone --> object class Phone
+        # function  add Phones from Phone list of User
+        if not self.emails:
+            self.emails = [*emails]
+        else:
+            for email in emails:
+                if email in self.emails:
+                    return '{} already exiting phone: {}'.format(self.name, email)
+                else:
+                    self.emails.append(email)
+                    return 'To list of {} add Email: {}'.format(self.name, email)
+
     def delphone(self, phone: Phone):  # phone --> object class Phone
         # function  delete Phone from Phone list of User
 
@@ -187,7 +198,7 @@ class Record(Field):
         else:
             return '{} not have phone: {}'.format(self.name, phone)
 
-    def add_adress(self, adres: str):
+    def add_adress(self, adres: Adress):
         if not self.adress:
             self.adress = adres
 
