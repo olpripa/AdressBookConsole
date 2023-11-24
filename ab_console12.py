@@ -19,7 +19,7 @@
 
 """
 from classes import *
-# from start import ab_start
+from abc_classes import *
 from pathlib import Path
 import pickle
 
@@ -52,7 +52,9 @@ def input_error(func):
 
 def hello():
     # outputs to the console on hello
-    print(__doc__)
+    # print(__doc__)
+    # return f"How can I help you?"
+    CLI_interface(__doc__).get_summary
     return f"How can I help you?"
 
 
@@ -79,7 +81,9 @@ def phone_add(name, phones=[]):
         for ph in phones:
             try:
                 phone = Phone(ph)
-                print(dict_users_phone.get(name).addphones(phone))
+                # print(dict_users_phone.get(name).addphones(phone))
+                CLI_interface(dict_users_phone.get(
+                    name).addphones(phone)).get_summary
             except ValueError:
                 return f'Check phone nubmer {ph}'
 
@@ -138,8 +142,9 @@ def show_all():
     for p in page:
         result = ''
         for key in p:
-            result += f'{str(dict_users_phone[key])}\n'
-        print(result)
+            result += f'{str(dict_users_phone[key])}'
+            # print(result)
+        CLI_interface(result).get_summary()
         if input('Pres Enter'):
             continue
     return f'Done'
@@ -153,7 +158,8 @@ def search(str_search):
         result = ''
         for key in dict_users_phone.search(str_search):
             result += f'{str(dict_users_phone[key])}\n'
-        print(result)
+        # print(result)
+        CLI_interface(result).get_summary
         return f'Search {str_search}'
 
 
@@ -170,7 +176,8 @@ def load():
 def exit():
     with open(data_file, "wb") as file:
         pickle.dump(dict_users_phone, file)
-    print("Good bye!")
+    # print("Good bye!")
+    CLI_interface("Good bye!").get_summary()
     return
 
 
@@ -228,8 +235,6 @@ def main():
 
     dict_users_phone = load()
     arg = ''
-
-    print(f'main-code в {__name__} виконується тут\n {__doc__}')
     try:
         while True:
             command, * \
@@ -242,7 +247,8 @@ def main():
             result = do(*arg)
             if not result:
                 break
-            print(result)
+            # print(result)
+            CLI_interface(result).get_summary()
 
     except KeyboardInterrupt:
         exit()
