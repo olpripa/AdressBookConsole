@@ -19,3 +19,7 @@ class CLI_interface(Interface_AB):
 class GUI_interface(Interface_AB):
     def get_summary(self):
         ...
+
+
+if __name__ == "__main":
+    interf = Interface_AB()
