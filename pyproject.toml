@@ -6,7 +6,7 @@ authors = ["Oleksandr Pripa <ol.pripa@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "3.11.3"
 
 
 [build-system]
