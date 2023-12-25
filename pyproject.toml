@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "ab-console"
+name = "ab_console"
 version = "0.1.0"
-description = ""
+description = "Mijn cursusproject GoIT Python Core"
 authors = ["Oleksandr Pripa <ol.pripa@gmail.com>"]
 readme = "README.md"
 
@@ -12,3 +12,6 @@ python = "3.11.3"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[project.urls]
+Homepage = "https://github.com/olpripa/AdressBookConsole"
