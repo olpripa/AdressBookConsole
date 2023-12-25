@@ -181,7 +181,7 @@ def exit():
     return
 
 
-data_file = Path('data.bin')
+data_file =  Path('data/data.bin')
 list_command = ["hello",
                 "add",
                 "phoneadd",
